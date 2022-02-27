@@ -1,0 +1,11 @@
+apply plugin: "kotlin"
+
+dependencies {
+    implementation deps.coroutines.core
+
+    api deps.test.coroutines
+    api deps.sqldelight.jdbcDriver
+
+    implementation deps.test.junit
+    implementation project(":base")
+}

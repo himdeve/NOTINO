@@ -1,0 +1,27 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.squareup.sqldelight"
+apply plugin: "com.squareup.anvil"
+
+anvil {
+    generateDaggerFactories true
+}
+
+sqldelight {
+    AppDatabase {
+        packageName = "sk.himdeve.notino.db"
+        dependency project(":notino:products:impl")
+
+        verifyMigrations = true
+    }
+}
+
+dependencies {
+    implementation deps.moshi.client
+    implementation deps.sqldelight.androidDriver
+    implementation deps.dagger.runtime
+    implementation project(":notino:products:impl")
+    implementation project(":sqldelight-android-driver")
+    implementation project(":base-sqldelight")
+    implementation project(":base-di")
+}

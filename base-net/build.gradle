@@ -1,0 +1,22 @@
+apply plugin: "kotlin"
+apply plugin: "com.squareup.anvil"
+apply plugin: "com.google.devtools.ksp"
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.dagger.runtime
+    implementation deps.retrofit.client
+    implementation deps.retrofit.moshiConverter
+    implementation deps.okhttp.client
+    implementation deps.okhttp.loggingInterceptor
+
+    implementation deps.moshi.client
+    ksp deps.moshi.compiler
+
+    implementation project(":logger:contract")
+    implementation project(":base-di")
+    implementation project(":base")
+}

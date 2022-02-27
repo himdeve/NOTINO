@@ -1,0 +1,39 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.squareup.anvil"
+
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+}
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.coroutines.core
+    implementation deps.dagger.runtime
+    implementation deps.coil
+    implementation deps.ratingBar
+
+    implementation project(":notino:products:contract")
+    implementation project(":notino:navigation:contract")
+    implementation project(":notino:base")
+    implementation project(":formatter")
+    implementation project(":base-compose")
+    implementation project(":base-android")
+    implementation project(":base-di")
+    implementation project(":base")
+
+    testImplementation project(":notino:products:test-utils")
+    testImplementation project(":test-utils")
+    testImplementation deps.test.turbine
+    testImplementation deps.test.junit
+    testImplementation deps.test.assertK
+}

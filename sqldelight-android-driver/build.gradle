@@ -1,0 +1,8 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+dependencies {
+    implementation deps.sqldelight.androidDriver
+    implementation deps.sqldelight.runtime
+    implementation project(":base-sqldelight")
+}

@@ -1,0 +1,30 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.squareup.anvil"
+
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+}
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.accompanist.insets
+    implementation deps.material
+
+    implementation deps.dagger.runtime
+    implementation deps.coroutines.core
+
+    implementation project(":base-compose")
+    implementation project(":base-android")
+    implementation project(":base-net")
+    implementation project(":base")
+}

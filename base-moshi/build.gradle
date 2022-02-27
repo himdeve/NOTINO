@@ -1,0 +1,12 @@
+apply plugin: "kotlin"
+apply plugin: "com.squareup.anvil"
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.dagger.runtime
+    api deps.moshi.client
+    implementation project(":base-di")
+}

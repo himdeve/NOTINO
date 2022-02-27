@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Grayscale -->
+    <color name="white">#FFFFFF</color>
+    <color name="white_a80">#CCFFFFFF</color>
+    <color name="white_a70">#AAFFFFFF</color>
+    <color name="white_a60">#99FFFFFF</color>
+    <color name="white_a55">#88FFFFFF</color>
+    <color name="white_a45">#77FFFFFF</color>
+    <color name="white_a30">#55FFFFFF</color>
+    <color name="white_a20">#40FFFFFF</color>
+    <color name="white_a10">#22FFFFFF</color>
+    <color name="white_a075">#19FFFFFF</color>
+    <color name="white_a05">#11FFFFFF</color>
+    <color name="white_a00">#00FFFFFF</color>
+
+    <color name="black">#000000</color>
+    <color name="black_00">#00000000</color>
+    <color name="black_a80">#CC000000</color>
+    <color name="black_a70">#AA000000</color>
+    <color name="black_a60">#88000000</color>
+    <color name="black_a50">#77000000</color>
+    <color name="black_a30">#55000000</color>
+    <color name="black_a20">#33000000</color>
+    <color name="black_a10">#22000000</color>
+    <color name="black_a075">#19000000</color>
+    <color name="black_a05">#11000000</color>
+    <color name="black_a04">#09000000</color>
+
+    <color name="gray_50">#FAFAFA</color>
+    <color name="gray_100">#F5F5F5</color>
+    <color name="gray_200">#EEEEEE</color>
+    <color name="gray_300">#E0E0E0</color>
+    <color name="gray_400">#BDBDBD</color>
+    <color name="gray_500">#9E9E9E</color>
+    <color name="gray_600">#757575</color>
+    <color name="gray_700">#616161</color>
+    <color name="gray_800">#424242</color>
+    <color name="gray_825">#363636</color>
+    <color name="gray_850">#313131</color>
+    <color name="gray_900">#212121</color>
+    <color name="gray_950">#101010</color>
+
+    <color name="gray_900_a70">#AA212121</color>
+</resources>

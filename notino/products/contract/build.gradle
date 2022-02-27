@@ -1,0 +1,10 @@
+apply plugin: "kotlin"
+apply plugin: "com.google.devtools.ksp"
+
+dependencies {
+    api deps.retrofit.client
+    api deps.moshi.client
+    ksp deps.moshi.compiler
+
+    api project(":base")
+}

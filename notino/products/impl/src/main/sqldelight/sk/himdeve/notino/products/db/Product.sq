@@ -1,0 +1,38 @@
+import sk.himdeve.notino.products.Product.Attributes;
+import sk.himdeve.notino.products.Product.Brand;
+import sk.himdeve.notino.products.Product.Price;
+import sk.himdeve.notino.products.Product.ReviewSummary;
+import sk.himdeve.notino.products.Product.StockAvailability;
+import sk.himdeve.notino.products.ProductId;
+import java.lang.Boolean;
+
+CREATE TABLE IF NOT EXISTS product (
+    id TEXT AS ProductId NOT NULL PRIMARY KEY,
+    brand TEXT AS Brand NOT NULL,
+    attributes TEXT AS Attributes NOT NULL,
+    annotation TEXT NOT NULL,
+    masterId INTEGER NOT NULL,
+    url TEXT NOT NULL,
+    orderUnit TEXT NOT NULL,
+    price TEXT AS Price NOT NULL,
+    imageUrl TEXT NOT NULL,
+    name TEXT NOT NULL,
+    productCode TEXT NOT NULL,
+    reviewSummary TEXT AS ReviewSummary NOT NULL,
+    stockAvailability TEXT AS StockAvailability NOT NULL,
+    favourite INTEGER AS Boolean NOT NULL DEFAULT 0
+);
+
+products:
+SELECT * FROM product;
+
+insertProduct:
+INSERT INTO product(id, brand, attributes, annotation, masterId, url, orderUnit, price, imageUrl, name, productCode, reviewSummary, stockAvailability, favourite)
+VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
+
+updateProduct:
+UPDATE product SET brand=?, attributes=?, annotation=?, masterId=?, url=?, orderUnit=?, price=?, imageUrl=?, name=?, productCode=?, reviewSummary=?, stockAvailability=?, favourite=?
+WHERE id=?;
+
+deleteProduct:
+DELETE FROM product WHERE id=?;

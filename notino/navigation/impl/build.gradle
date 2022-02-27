@@ -1,0 +1,20 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.squareup.anvil"
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.androidx.navigation
+    implementation deps.coroutines.core
+    implementation deps.dagger.runtime
+
+    api parent.project("contract")
+    implementation project(":base-compose")
+    implementation project(":base-di")
+    implementation project(":base")
+
+    anvil project(":auto-initialized-compiler")
+}

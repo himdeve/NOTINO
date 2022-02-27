@@ -1,0 +1,126 @@
+apply plugin: "com.android.application"
+apply plugin: "kotlin-android"
+apply plugin: "kotlin-kapt"
+apply plugin: "com.squareup.anvil"
+
+android {
+    compileSdkVersion rootProject.ext.compileSdk
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdk.notino
+        targetSdkVersion rootProject.ext.targetSdk
+
+        applicationId "sk.himdeve.notino"
+        versionName versionConfig.notino.versionName
+        versionCode versionConfig.notino.versionCode
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+    }
+
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+
+    buildTypes {
+        release {
+            if (isCI) {
+                minifyEnabled true
+                signingConfig signingConfigs.release
+                proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            }
+        }
+    }
+
+    if (!isCI) {
+        // Turn off most likely unnecessary variants
+        // for local development, to improve configuration time
+        variantFilter { variant ->
+            def buildType = variant.buildType.name
+            if (buildType == "release") {
+                variant.setIgnore(true)
+            }
+        }
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        prod {
+            dimension "default"
+            applyEnvironmentConfig(delegate, environmentConfig.prod)
+            isDefault.set(true)
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+private static void applyEnvironmentConfig(productFlavor, config) {
+    productFlavor.buildConfigField "String", "ApiBaseUrl", quote(config.notino.baseApiUrl)
+    productFlavor.buildConfigField "String", "ImageBaseUrl", quote(config.notino.baseImageUrl)
+}
+
+private static String quote(String string) {
+    return ("\"" + string + "\"")
+}
+
+dependencies {
+    implementation deps.androidx.activity
+    implementation deps.androidx.appCompat
+    implementation deps.androidx.navigation
+    implementation deps.accompanist.insets
+    implementation deps.accompanist.navigationAnimation
+    implementation deps.androidx.ktx
+    implementation deps.material
+
+    implementation deps.okhttp.client
+    implementation deps.okhttp.loggingInterceptor
+
+    implementation deps.retrofit.client
+
+    implementation deps.retrofit.moshiConverter
+
+    implementation deps.moshi.client
+
+
+    implementation deps.coroutines.core
+    implementation deps.coroutines.android
+
+
+    implementation deps.coil
+
+    implementation deps.dagger.runtime
+    kapt deps.dagger.compiler
+
+    implementation project(":notino:dashboard")
+    implementation project(":notino:products:impl")
+    implementation project(":notino:navigation:impl")
+    implementation project(":notino:db")
+    implementation project(":notino:base")
+
+    implementation project(":logger:impl")
+    implementation project(":sqldelight-android-driver")
+    implementation project(":formatter")
+    implementation project(":test-utils")
+
+    implementation project(":base-compose")
+    implementation project(":base-android")
+    implementation project(":base-moshi")
+    implementation project(":base-sqldelight")
+    implementation project(":base-net")
+    implementation project(":base-di")
+    implementation project(":base")
+
+    anvil project(":auto-initialized-compiler")
+}

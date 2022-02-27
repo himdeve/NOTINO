@@ -1,0 +1,84 @@
+buildscript {
+    apply from: "config.gradle"
+
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://plugins.gradle.org/m2/" }
+    }
+    dependencies {
+        classpath deps.plugin.agp
+        classpath deps.plugin.kgp
+        classpath deps.plugin.ksp
+        classpath deps.plugin.versions
+        classpath deps.plugin.anvil
+        classpath deps.plugin.sqldelight
+        classpath deps.plugin.dependencyAnalysis
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+        maven { url "https://jitpack.io" }
+    }
+
+    tasks.withType(Test).configureEach {
+        testLogging {
+            events "passed", "skipped", "failed", "standardOut"
+            showStackTraces = true
+            exceptionFormat = "full"
+        }
+    }
+
+    afterEvaluate {
+        def android = it.extensions.findByName("android")
+        if (android != null) {
+            // Apply lintOptions to every android module
+            android.lintOptions {
+                xmlReport false
+                htmlReport false
+            }
+
+            // Apply stuff to every android library module
+            if (android instanceof com.android.build.gradle.LibraryExtension) {
+                android.compileSdkVersion compileSdk
+                android.defaultConfig.minSdkVersion minSdk.libraries
+                android.defaultConfig.testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+                android.defaultConfig.consumerProguardFiles "proguard-rules.pro"
+
+                if (!isCI) {
+                    // Turn off most likely unnecessary variants
+                    // for local development, to improve configuration time
+                    android.variantFilter { variant ->
+                        def buildType = variant.buildType.name
+                        if (buildType == "release") {
+                            variant.setIgnore(true)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    tasks.withType(JavaCompile).configureEach { task ->
+        task.sourceCompatibility = JavaVersion.VERSION_1_8
+        task.targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach { task ->
+        task.kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += [
+                    "-opt-in=kotlin.OptIn",
+                    "-Xopt-in=kotlin.ExperimentalStdlibApi",
+                    "-Xopt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
+            ]
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

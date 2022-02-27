@@ -1,0 +1,10 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+dependencies {
+    implementation deps.androidx.navigation
+    implementation deps.coroutines.core
+
+    implementation project(":base-compose")
+    implementation project(":base")
+}

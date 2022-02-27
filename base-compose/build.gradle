@@ -1,0 +1,29 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+
+android {
+    buildFeatures {
+        compose true
+    }
+
+    composeOptions {
+        kotlinCompilerExtensionVersion versions.compose
+    }
+}
+
+dependencies {
+    api deps.androidx.lifecycle
+    api deps.androidx.compose.ui
+    api deps.androidx.compose.foundation
+    api deps.androidx.compose.tooling
+    api deps.androidx.compose.material
+
+    implementation deps.androidx.navigation
+    implementation deps.accompanist.navigationAnimation
+
+    implementation deps.coroutines.core
+
+    implementation project(":base")
+    implementation project(":base-di")
+    implementation project(":logger:contract")
+}

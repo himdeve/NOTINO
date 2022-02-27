@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Notino</string>
+
+    <string name="dashboard_no_items">Ste správne! Zatiaľ však nemáme žiadne produkty</string>
+    <string name="dashboard_add">Do košíku</string>
+</resources>

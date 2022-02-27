@@ -1,0 +1,118 @@
+ext {
+    isCI = System.getenv("CI")?.toBoolean() ?: false
+
+    compileSdk = 31
+    targetSdk = 31
+    minSdk = [
+            libraries: 23,
+            notino   : 23
+    ]
+
+    readVersionCode = {
+        System.getenv("VERSION_CODE")?.toInteger() ?: 1
+    }
+
+    versionConfig = [
+            notino: [
+                    versionCode: readVersionCode(),
+                    versionName: "1.0"
+            ]
+    ]
+
+    versions = [
+            kotlin     : "1.6.10",
+            coroutines : "1.6.0",
+            dagger     : "2.40.5",
+            okhttp     : "4.9.2",
+            retrofit   : "2.9.0",
+            moshi      : "1.13.0",
+            sqldelight : "1.5.3",
+            anvil      : "2.3.11-1-6-10",
+            compose    : "1.1.0-rc03",
+            accompanist: "0.22.1-rc"
+    ]
+
+    deps = [
+            plugin               : [
+                    agp               : "com.android.tools.build:gradle:7.1.1",
+                    kgp               : "org.jetbrains.kotlin:kotlin-gradle-plugin:$versions.kotlin",
+                    ksp               : "com.google.devtools.ksp:symbol-processing-gradle-plugin:1.6.10-1.0.2",
+                    versions          : "com.github.ben-manes:gradle-versions-plugin:0.41.0",
+                    anvil             : "com.squareup.anvil:gradle-plugin:$versions.anvil",
+                    sqldelight        : "com.squareup.sqldelight:gradle-plugin:$versions.sqldelight",
+                    dependencyAnalysis: "com.autonomousapps:dependency-analysis-gradle-plugin:0.75.0",
+            ],
+            kotlin               : "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$versions.kotlin",
+            test                 : [
+                    junit         : "junit:junit:4.13.2",
+                    assertK       : "com.willowtreeapps.assertk:assertk-jvm:0.25",
+                    coroutines    : "org.jetbrains.kotlinx:kotlinx-coroutines-test:$versions.coroutines",
+                    turbine       : "app.cash.turbine:turbine:0.7.0"
+            ],
+            material             : "com.google.android.material:material:1.5.0",
+            accompanist          : [
+                    insets             : "com.google.accompanist:accompanist-insets:$versions.accompanist",
+                    navigationAnimation: "com.google.accompanist:accompanist-navigation-animation:$versions.accompanist"
+            ],
+            androidx             : [
+                    activity             : "androidx.activity:activity-compose:1.4.0",
+                    appCompat            : "androidx.appcompat:appcompat:1.4.1",
+                    lifecycle            : "androidx.lifecycle:lifecycle-extensions:2.2.0",
+                    core                 : "androidx.core:core:1.7.0",
+                    ktx                  : "androidx.core:core-ktx:1.7.0",
+                    transition           : "androidx.transition:transition:1.4.1",
+                    navigation           : "androidx.navigation:navigation-compose:2.4.0",
+                    compose              : [
+                            ui              : "androidx.compose.ui:ui:$versions.compose",
+                            tooling         : "androidx.compose.ui:ui-tooling:$versions.compose",
+                            foundation      : "androidx.compose.foundation:foundation:$versions.compose",
+                            material        : "androidx.compose.material:material:$versions.compose",
+                            constraintLayout: "androidx.constraintlayout:constraintlayout-compose:1.0.0"
+                    ]
+            ],
+            coroutines           : [
+                    core   : "org.jetbrains.kotlinx:kotlinx-coroutines-core:$versions.coroutines",
+                    android: "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.coroutines"
+            ],
+            dagger               : [
+                    runtime : "com.google.dagger:dagger:$versions.dagger",
+                    compiler: "com.google.dagger:dagger-compiler:$versions.dagger",
+            ],
+            okhttp               : [
+                    client            : "com.squareup.okhttp3:okhttp:$versions.okhttp",
+                    loggingInterceptor: "com.squareup.okhttp3:logging-interceptor:$versions.okhttp",
+            ],
+            retrofit             : [
+                    client        : "com.squareup.retrofit2:retrofit:$versions.retrofit",
+                    moshiConverter: "com.squareup.retrofit2:converter-moshi:$versions.retrofit"
+            ],
+            moshi                : [
+                    client           : "com.squareup.moshi:moshi:$versions.moshi",
+                    kotlinReflect    : "com.squareup.moshi:moshi-kotlin:$versions.moshi",
+                    adapters         : "com.squareup.moshi:moshi-adapters:$versions.moshi",
+                    compiler         : "com.squareup.moshi:moshi-kotlin-codegen:$versions.moshi",
+            ],
+            jdbcSqlite           : "org.xerial:sqlite-jdbc:3.36.0.3}",
+            sqldelight           : [
+                    androidDriver: "com.squareup.sqldelight:android-driver:$versions.sqldelight",
+                    jdbcDriver   : "com.squareup.sqldelight:sqlite-driver:$versions.sqldelight",
+                    flow         : "com.squareup.sqldelight:coroutines-extensions:$versions.sqldelight",
+                    runtime      : "com.squareup.sqldelight:runtime-jvm:$versions.sqldelight"
+            ],
+            coil                 : "io.coil-kt:coil-compose:1.4.0",
+            anvil                : [
+                    compilerApi  : "com.squareup.anvil:compiler-api:$versions.anvil",
+                    compilerUtils: "com.squareup.anvil:compiler-utils:$versions.anvil"
+            ],
+            ratingBar            : "com.github.MhmoudAlim:Compose-Ratingbar-library:0.0.1"
+    ]
+
+    environmentConfig = [
+            prod: [
+                    notino: [
+                            baseApiUrl   : "https://my-json-server.typicode.com/cernfr1993/",
+                            baseImageUrl : "https://i.notino.com/detail_zoom/"
+                    ]
+            ]
+    ]
+}

@@ -1,0 +1,24 @@
+apply plugin: "com.android.library"
+apply plugin: "kotlin-android"
+apply plugin: "com.google.devtools.ksp"
+apply plugin: "com.squareup.anvil"
+
+anvil {
+    generateDaggerFactories true
+}
+
+dependencies {
+    implementation deps.androidx.core
+    implementation deps.androidx.appCompat
+
+    implementation deps.dagger.runtime
+
+    implementation deps.coroutines.android
+    implementation deps.coroutines.core
+
+    implementation deps.moshi.client
+    ksp deps.moshi.compiler
+
+    api project(":base-di")
+    implementation project(":base")
+}
